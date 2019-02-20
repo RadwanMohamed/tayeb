@@ -14,7 +14,7 @@ class User extends Authenticatable
     const REGULAR_USER  = '0';
     const ADMIN_USER  = '1';
     const ON = '1';
-    const OFF = '1';
+    const OFF = '0';
 
 
     /**
@@ -23,7 +23,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'phone', 'password', 'api_token', 'role', 'status', 'city', 'address', 'verify'
     ];
 
     /**
@@ -43,4 +43,36 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function requests()
+    {
+        return $this->hasMany('App\Request');
+    }
+    /**
+     * generate access token
+     * @return string
+     */
+    public static function generateToken()
+    {
+        return str_random(40);
+    }
+
+    /**
+     * generate verification key
+     * @return string
+     * @throws \Exception
+     */
+    public static function generateVerificationKey()
+    {
+      $i = 0;
+      $key = '';
+      while ($i<6)
+      {
+          $key .= random_int(0,9);
+          $i++;
+      }
+
+      return $key;
+    }
 }

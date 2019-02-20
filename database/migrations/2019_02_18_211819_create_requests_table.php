@@ -15,15 +15,15 @@ class CreateRequestsTable extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('cutter_kind');
-            $table->string('size');
+            $table->string('name')->nullable();
             $table->string('city');
             $table->string('address');
             $table->string('subtotal');
             $table->integer('code_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('code_id')->references('id')->on('promotions');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

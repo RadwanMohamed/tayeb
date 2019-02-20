@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class LoginController extends ApiController
 {
     /*
     |--------------------------------------------------------------------------
@@ -36,4 +39,33 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function username()
+    {
+        return 'phone';
+    }
+   public function login(Request $request )
+   {
+       $this->validateLogin($request);
+       if ($this->attemptLogin($request))
+       {
+           $user = $this->guard()->user();
+           $user->api_token = User::generateToken();
+           $user->save();
+           return response()->json(['data'=>$user->toArray()]);
+       }
+
+       return $this->sendFailedLoginResponse($request);
+   }
+   public function logout(Request $request )
+   {
+       $user = Auth::guard('api')->user();
+       if ($user)
+       {
+           $user->api_token = null;
+           $user->save();
+       }
+       return response()->json(['data'=>'user logged out'],200);
+   }
+
 }

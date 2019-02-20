@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api\Category;
+namespace App\Http\Controllers\Api\Product;
 
-use App\Category;
+use App\Product;
 use App\Http\Controllers\ApiController;
 
-
-class CategoryController extends ApiController
+class ProductController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +14,9 @@ class CategoryController extends ApiController
      */
     public function index()
     {
-        $categories = Category::all();
-        return $this->showAll('categories',$categories);
+        $products = Product::all();
+        return $this->showAll('products',$products);
     }
-
 
 
     /**
@@ -27,9 +25,9 @@ class CategoryController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Product $product)
     {
-        return $this->showOne('category',$category);
+        return $this->showOne('product',$product);
     }
 
 
