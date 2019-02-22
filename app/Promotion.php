@@ -10,4 +10,10 @@ class Promotion extends Model
     const ACTIVATED = 'activated';
     const FIXED = 'fixed';
     const DYNAMIC = 'dynamic';
+
+
+    public static  function generatePromoCode()
+    {
+        return str_random(6);
+    }
 }

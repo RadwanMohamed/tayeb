@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Request;
 
 use App\Http\Controllers\ApiController;
 use App\Order;
+use App\Promotion;
 use Illuminate\Http\Request;
 
 
@@ -82,21 +83,40 @@ class RequestController extends ApiController
             'city'       => 'required|string',
             'subtotal'   => 'required|numeric',
             'user_id'    => 'required|numeric',
-            'code_id'    => 'nullable|numeric',
         ];
         $this->validate($request,$rules);
 
+
         $req = new \App\Request();
+
+        if ($request->has('code'))
+        {
+            $code = Promotion::where('code' , '=', $request->code)->first();
+            if($code != [] && $code->status != Promotion::EXPIRED )
+            {
+                $req->code_id = $code->id;
+                $req->subtotal = ($code->type == Promotion::FIXED)? ($request->subtotal - $code->value) : $request->subtotal-($request->subtotal * $code->value/100);
+                $code->count -=1;
+                $code->save();
+
+
+            }
+            else{
+                return $this->errorResponse('please enter a valid code',404);
+            }
+
+
+        }
         $req->name = $request->name;
         $req->city = $request->city;
         $req->address = $request->address;
-        $req->subtotal = $request->subtotal;
-        $req->code_id = $request->code_id;
         $req->user_id = $request->user_id;
+        $req->status  = \App\Request::NEW;
         $req->save();
 
         foreach ($request->orders as $order)
         {
+
             Order::create([
                 'name' => $order->name,
                 'cutter_kind' => $order->cutter_kind,

@@ -1,21 +1,25 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::post('/adminpanel/users/{user}/block','Admin\User\UserController@block');
+Route::post('/adminpanel/users/{user}/activate','Admin\User\UserController@activate');
+Route::resource('/adminpanel/users','Admin\User\UserController');
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/login', 'HomeController@index')->name('login');
+Route::resource('/adminpanel/categories','Admin\Category\CategoryController');
+
+
+
+Route::resource('/adminpanel/products','Admin\User\ProductController');
+
+
+
+Route::resource('/adminpanel/orders','Admin\Order\OrderController');
+
+
+Route::resource('/adminpanel/requests','Admin\Request\RequestController');
+
+
+
+Route::resource('/adminpanel/promotions','Admin\Promotion\PromotionController');
+

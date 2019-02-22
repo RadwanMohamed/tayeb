@@ -19,6 +19,7 @@ class CreateRequestsTable extends Migration
             $table->string('city');
             $table->string('address');
             $table->string('subtotal');
+            $table->string('status');
             $table->integer('code_id')->unsigned()->nullable();
             $table->integer('user_id')->unsigned()->nullable();
             $table->timestamps();

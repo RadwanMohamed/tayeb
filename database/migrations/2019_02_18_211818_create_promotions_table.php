@@ -20,6 +20,7 @@ class CreatePromotionsTable extends Migration
             $table->integer('count');
             $table->string('status')->default(\App\Promotion::EXPIRED);
             $table->string('type')->default(\App\Promotion::DYNAMIC);
+            $table->integer('value');
             $table->timestamps();
         });
     }
