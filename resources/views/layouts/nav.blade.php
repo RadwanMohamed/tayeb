@@ -1,6 +1,29 @@
 <li class="nav-item start active open">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="icon-home"></i>
+        <span class="title">التقارير</span>
+        <span class="selected"></span>
+        <span class="arrow open"></span>
+    </a>
+    <ul class="sub-menu">
+        <li class="nav-item start active open">
+            <a href="{{route('reports.index')}}" class="nav-link ">
+                <i class="icon-bar-chart"></i>
+                <span class="title"> عرض  تقرير عن كمية المبيعات </span>
+                <span class="selected"></span>
+            </a>
+        </li>
+        <li class="nav-item start active open">
+            <a href="{{route('users.create')}}" class="nav-link ">
+                <i class="icon-bar-chart"></i>
+                <span class="title"> اضافة مستخدم جديد </span>
+                <span class="selected"></span>
+            </a>
+        </li>
+
+    </ul>
+    <a href="javascript:;" class="nav-link nav-toggle">
+        <i class="icon-home"></i>
         <span class="title">المستخدمين</span>
         <span class="selected"></span>
         <span class="arrow open"></span>
@@ -105,14 +128,48 @@
                 <span class="selected"></span>
             </a>
         </li>
+
+
+    </ul>
+    <a href="javascript:;" class="nav-link nav-toggle">
+        <i class="icon-home"></i>
+        <span class="title"> الفروع </span>
+        <span class="selected"></span>
+        <span class="arrow open"></span>
+    </a>
+    <ul class="sub-menu">
         <li class="nav-item start active open">
-            <a href="{{route('requests.create')}}" class="nav-link ">
+            <a href="{{route('branches.index')}}" class="nav-link ">
                 <i class="icon-bar-chart"></i>
-                <span class="title"> اضافة طلب جديد </span>
+                <span class="title"> عرض جميع الفروع </span>
                 <span class="selected"></span>
             </a>
         </li>
-       
+        <li class="nav-item start active open">
+            <a href="{{route('branches.create')}}" class="nav-link ">
+                <i class="icon-bar-chart"></i>
+                <span class="title"> اضافة فرع جديد </span>
+                <span class="selected"></span>
+            </a>
+        </li>
+
+    </ul>
+<a href="javascript:;" class="nav-link nav-toggle">
+        <i class="icon-home"></i>
+        <span class="title"> اعدادت الموقع </span>
+        <span class="selected"></span>
+        <span class="arrow open"></span>
+    </a>
+    <ul class="sub-menu">
+        <li class="nav-item start active open">
+            <a href="{{route('settings.index')}}" class="nav-link ">
+                <i class="icon-bar-chart"></i>
+                <span class="title"> تعديل </span>
+                <span class="selected"></span>
+            </a>
+        </li>
+
+
     </ul>
 
 

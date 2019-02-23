@@ -15,8 +15,8 @@ class PromotionController extends Controller
      */
     public function index(Request $request)
     {
-        $codes = Promotion::all();
-        return view('promotions.index',compact('codes'));
+        $promotions = Promotion::all();
+        return view('promotions.index',compact('promotions'));
     }
 
     /**
@@ -26,7 +26,7 @@ class PromotionController extends Controller
      */
     public function create()
     {
-        return view('promotion.create');
+        return view('promotions.create');
     }
 
     /**
@@ -41,7 +41,6 @@ class PromotionController extends Controller
             'name' => 'required|string|max:190',
             'code' => 'required|string',
             'count' => 'required|numeric',
-            'status' => 'required|string',
             'type' => 'required|string',
             'value' => 'required|numeric',
         ];
@@ -51,12 +50,11 @@ class PromotionController extends Controller
             'name'=>$request->name,
             'code'=>$request->code,
             'count'=>$request->count,
-            'status'=>$request->status,
             'type'=>$request->type,
             'value'=>$request->value,
         ]);
 
-        return view("codes.index")->with("status",'تمت اضافة الكود بنجاح');
+        return redirect(route('promotions.index'))->with("status",'تمت اضافة الكود بنجاح');
 
     }
 
@@ -67,9 +65,27 @@ class PromotionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Promotion $code)
+    public function destroy($id)
     {
-        $code->delete();
+        Promotion::where('id',$id)->delete();
+        return redirect(route('promotions.index'));
+    }
+
+    public  function activate (Promotion $promotion)
+    {
+        if ($promotion->status == Promotion::ACTIVATED)
+             return redirect()->back()->with('status','عفوا هذا الكود مفعل بالفعل');
+        $promotion->status = Promotion::ACTIVATED;
+        $promotion->save();
+        return redirect(route('promotions.index'))->with('status','تم تفعيل الكود بنجاح');
+    }
+    public  function deactivate (Promotion $promotion)
+    {
+        if ($promotion->status == Promotion::EXPIRED)
+             return redirect()->back()->with('status','عفوا هذا الكود غير مفعل بالفعل');
+        $promotion->status = Promotion::EXPIRED;
+        $promotion->save();
+        return redirect(route('promotions.index'))->with('status','تم ايقاف الكود بنجاح');
     }
 
 }

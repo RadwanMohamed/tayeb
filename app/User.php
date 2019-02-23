@@ -49,6 +49,7 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Request');
     }
+
     /**
      * generate access token
      * @return string

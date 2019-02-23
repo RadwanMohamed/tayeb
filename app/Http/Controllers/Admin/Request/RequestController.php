@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Admin\Request;
 
+use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class RequestController extends Controller
 {
+    private  $data =[];
     /**
      * Display a listing of the resource.
      *
@@ -21,9 +24,10 @@ class RequestController extends Controller
                 continue;
             if ($key == 'name')
                 $requests = $requests->where($key,'like','%'.$value.'%');
+            else
             $requests = $requests->where($key,'=',$value);
         }
-        $requests->paginate(50);
+        $requests = $requests->paginate(50);
         return view('requests.index',compact('requests'));
     }
 
@@ -37,7 +41,9 @@ class RequestController extends Controller
      */
     public function show(\App\Request $request)
     {
-        return view("requests.show",compact('request'));
+        $this->data['request'] = $request;
+        $this->data['orders']  = Order::where('request_id','=',$request->id)->get();
+        return view("requests.show",$this->data);
     }
 
 }

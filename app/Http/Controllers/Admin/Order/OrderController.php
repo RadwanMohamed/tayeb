@@ -63,8 +63,10 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         $order->status = $request->status;
-        if ($order->save())
+        if ($order->isClean())
             return redirect()->back()->with("status",'يجب اضافة قيم جديدة لاتمام عملية التعديل');
+        $order->save();
+        return redirect(url('/adminpanel/requests/'.$order->request_id.'/orders'));
     }
 
 }

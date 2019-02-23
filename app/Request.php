@@ -15,4 +15,13 @@ class Request extends Model
     {
         return $this->hasMany('App\Order');
     }
+
+    public function code()
+    {
+        return $this->belongsTo('App\Promotion');
+    }
+     function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

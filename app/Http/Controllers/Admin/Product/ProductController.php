@@ -17,20 +17,9 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $products = Product::select('*');
-        foreach (array_except($request->all(),'page') as $key=>$value)
-        {
-            if ($key == '')
-                continue;
-            if ($key == 'name_ar')
-                $products->where($key, 'like','%'.$value.'%');
-            if ($key == 'name_en')
-                $products->where($key,'like','%'.$value.'%');
-            $products->where($key,'=',$value);
+        $products = Product::paginate(50);
+        return view('products.index',compact('products'));
 
-            $products->paginate(50);
-            return view('products.index',compact('products'));
-        }
     }
 
     /**
@@ -40,8 +29,9 @@ class ProductController extends Controller
      */
     public function create()
     {
+
         $categories = $this->objectToArray(Category::all());
-        return view('categories.index',$categories);
+        return view('products.create',compact('categories'));
     }
 
     public function objectToArray($object)
@@ -85,7 +75,7 @@ class ProductController extends Controller
             'category_id' => $request->category_id,
         ]);
 
-        return view('products.store');
+        return redirect(route('products.index'));
     }
 
 
@@ -97,7 +87,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('products.edit');
+        $this->data['product'] = $product;
+        $this->data['categories'] = $this->objectToArray(Category::all());
+        return view('products.edit',$this->data);
     }
 
     /**
@@ -112,7 +104,7 @@ class ProductController extends Controller
         $rules  = [
             'name_ar' => 'required|string|max:190',
             'name_en' => 'required|string|max:190',
-            'photo' => 'required|image',
+            'photo' => 'image',
             'price' => 'required|numeric',
             'description_ar' => 'required|string',
             'description_en' => 'required|string',
@@ -120,17 +112,23 @@ class ProductController extends Controller
             'category_id' => 'required|numeric',
         ];
         $this->validate($request,$rules);
+        if ($request->has('photo'))
+        {
+            if (is_file($product->photo))
+                File::delete($product->photo);
+            $product->photo = $request->photo->store('');
+        }
 
-        $product = Product::create([
-            'name_ar' => $request->name_ar,
-            'name_en' => $request->name_en,
-            'photo' =>   $request->photo->store(''),
-            'price' =>   $request->price,
-            'description_ar' => $request->description_ar,
-            'description_en' => $request->description_en,
-            'quantity' => $request->quantity,
-            'category_id' => $request->category_id,
-        ]);
+        $product->name_ar =$request->name_ar;
+        $product->name_en =$request->name_en;
+        $product->description_ar =$request->description_ar;
+        $product->description_en =$request->description_en;
+        $product->quantity =$request->quantity;
+        $product->category_id =$request->category_id;
+        if ($product->isClean())
+            return redirect()->back()->with('status','يجب ادخال قيم جديدة لاتمام عملية التعديل');
+        $product->save();
+
         return redirect(route('products.index'));
     }
 
