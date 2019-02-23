@@ -13,20 +13,18 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-
-    return $request->user();
-});
-
 Route::group(['middleware'=>['api']],function (){
 
 
     // Auth
-    $this->post('login', 'Auth\LoginController@login');
-    $this->post('logout', 'Auth\LoginController@logout');
+    Route::post('login', 'Auth\LoginController@login');
+
+    Route::post('logout', 'Auth\LoginController@logout');
+    Route::post('/users/store','Api\User\UserController@store');
+    Route::get('/target/{city}','Api\HomeController@targetCity');
 
 
-
+Route::group(['middleware'=>'auth:api'],function (){
     //start users routes
     Route::resource('/users','Api\User\UserController')->except(['edit','create']);
     Route::resource('/users.requests','Api\User\UserRequestController')->only(['index']);
@@ -46,27 +44,22 @@ Route::group(['middleware'=>['api']],function (){
 
 
 
-   //start requests routes
+    //start requests routes
     Route::post('/orders/request','Api\Request\RequestController@request');
     Route::resource('/requests','Api\Request\RequestController')->only(['index','show','store']);
     Route::resource('/requests.orders','Api\Request\RequestOrderController')->only(['index']);
     //end  requests routes
 
 
-   //start orders routes
+    //start orders routes
     Route::resource('/orders','Api\Order\OrderController')->only(['index','show','store']);
-   //end  orders routes
+    //end  orders routes
 
 
     //start home routes
-    Route::get('/target/{city}','Api\HomeController@targetCity');
-   //end  home routes
+    //end  home routes
 
-
-    route::middleware('auth:api')->post('/radwan',function (Request $request)
-    {
-        return $request->user();
-    });
+});
 
 
 

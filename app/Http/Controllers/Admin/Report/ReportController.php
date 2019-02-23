@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Admin\Report;
 
+use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
+
+    private  $data = [];
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +19,14 @@ class ReportController extends Controller
      */
     public function index()
     {
-        return view("reports.index");
+       $orders =  $this->ordersNumberperMonth(date('Y'));
+       $req =  $this->incomePerMonth(date('Y'));
+//dd($req);
+//       dd($this->incomePerMonth(date('Y')));
+       $this->data['orderpermonth'] = $orders;
+        return view("reports.index",$this->data);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -82,4 +93,41 @@ class ReportController extends Controller
     {
         //
     }
+
+    /**
+     * get count of building per month by given year
+     * @param $year
+     * @return array
+     */
+    private function ordersNumberperMonth($year)
+    {
+        $ordersamount = [];
+        $buar = [];
+
+        $orderscount = Order::select('id','created_at')->whereRaw('year(`created_at`)=?',"$year")->get()->groupBy(function($date){
+            return Carbon::parse($date->created_at)->format('m');
+        });
+//        dd($orderscount);
+        foreach ($orderscount as $key => $value)
+        {
+            $ordersamount[(int)$key] = count($value);
+        }
+        for ($i=1;$i<=12;$i++)
+        {
+            if(!empty($ordersamount[$i]))
+                $buar[$i] = $ordersamount[$i];
+            else
+                $buar[$i] = 0;
+        }
+
+        return $buar;
+
+    }
+    private function incomePerMonth($year)
+    {
+
+    }
+
+
+
 }
