@@ -395,34 +395,10 @@
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
+
                             <li>
-                                <a href="page_user_profile_1.html">
-                                    <i class="icon-user"></i> My Profile </a>
-                            </li>
-                            <li>
-                                <a href="app_calendar.html">
-                                    <i class="icon-calendar"></i> My Calendar </a>
-                            </li>
-                            <li>
-                                <a href="app_inbox.html">
-                                    <i class="icon-envelope-open"></i> My Inbox
-                                    <span class="badge badge-danger"> 3 </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="app_todo.html">
-                                    <i class="icon-rocket"></i> My Tasks
-                                    <span class="badge badge-success"> 7 </span>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="page_user_lock_1.html">
-                                    <i class="icon-lock"></i> Lock Screen </a>
-                            </li>
-                            <li>
-                                <a href="page_user_login_1.html">
-                                    <i class="icon-key"></i> Log Out </a>
+                                <a href="{{url('/adminpanel/logout')}}">
+                                    <i class="icon-key"></i> تسجيل الخروج</a>
                             </li>
                         </ul>
                     </li>
@@ -488,6 +464,7 @@
                         </form>
                         <!-- END RESPONSIVE QUICK SEARCH FORM -->
                     </li>
+
                     @include('layouts.nav')
 
                 </ul>
@@ -615,9 +592,9 @@
                 <!-- END PAGE BAR -->
                 <!-- BEGIN PAGE TITLE-->
 
-                @yield('page-title')
+            @yield('page-title')
 
-                <!-- END PAGE TITLE-->
+            <!-- END PAGE TITLE-->
                 <!-- END PAGE HEADER-->
                 @yield('content')
 
@@ -1281,11 +1258,11 @@
 
 {{--<!-- BEGIN PAGE LEVEL PLUGINS -->--}}
 <script src="{{asset('assets/global/plugins/moment.min.js')}}" type="text/javascript"></script>
-{{--<script src="../assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>--}}
-{{--<script src="../assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>--}}
-{{--<script src="../assets/global/plugins/morris/raphael-min.js" type="text/javascript"></script>--}}
-{{--<script src="../assets/global/plugins/counterup/jquery.waypoints.min.js" type="text/javascript"></script>--}}
-{{--<script src="../assets/global/plugins/counterup/jquery.counterup.min.js" type="text/javascript"></script>--}}
+{{--<script src="{{asset('assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js')}}" type="text/javascript"></script>--}}
+{{--<script src="{{asset('assets/global/plugins/morris/morris.min.js')}}" type="text/javascript)}}"></script>--}}
+{{--<script src="{{asset('assets/global/plugins/morris/raphael-min.js')}}" type="text/javascript"></script>--}}
+{{--<script src="{{asset('assets/global/plugins/counterup/jquery.waypoints.min.js')}}" type="text/javascript"></script>--}}
+{{--<script src="{{asset('assets/global/plugins/counterup/jquery.counterup.min.js')}}" type="text/javascript"></script>--}}
 
 <script src="{{asset('assets/global/plugins/amcharts/amcharts/amcharts.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/global/plugins/amcharts/amcharts/serial.js')}}" type="text/javascript"></script>
@@ -1320,16 +1297,16 @@
 {{--<!-- END THEME GLOBAL SCRIPTS -->--}}
 {{--<!-- BEGIN PAGE LEVEL SCRIPTS -->--}}
 {{--<script src="{{asset('assets/pages/scripts/dashboard.min.js')}}" type="text/javascript"></script>--}}
-{{--<!-- END PAGE LEVEL SCRIPTS -->--}}
+
 <script src="{{asset('assets/pages/scripts/charts-amcharts.min.js')}}" type="text/javascript"></script>
 
+{{--<!-- END PAGE LEVEL SCRIPTS -->--}}
 {{--<!-- BEGIN THEME LAYOUT SCRIPTS -->--}}
 <script src="{{asset('assets/layouts/layout/scripts/layout.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/layouts/layout/scripts/demo.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/layouts/global/scripts/quick-sidebar.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/layouts/global/scripts/quick-nav.min.js')}}" type="text/javascript"></script>
 <!-- END THEME LAYOUT SCRIPTS -->
-
 @yield('js')
 </body>
 

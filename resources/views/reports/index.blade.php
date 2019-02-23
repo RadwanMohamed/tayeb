@@ -43,6 +43,8 @@
     <script>
 
         //  sells amount
+
+
         var ChartsAmcharts = function() {
 
             var initChartSample1 = function() {
@@ -64,7 +66,7 @@
                         {
                         "year":'{{monthName($key)}}',
                         "income": {{$value}},
-                        "expenses": {{$value}}
+                        "expenses": {{$value}},
                          },
                         @endforeach
 
@@ -110,6 +112,7 @@
                     chart.invalidateSize();
                 });
             }
+
             var initChartSample5 = function() {
                 var chart = AmCharts.makeChart("chart_5", {
                     "theme": "light",
