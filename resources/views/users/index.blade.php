@@ -8,6 +8,13 @@
 
 @section('content')
     <div class="portlet-body flip-scroll">
+        @if(\Session::has('status'))
+            <div class="alert alert-success">
+                <ul>
+                    <li>{!! \Session::get('status') !!}</li>
+                </ul>
+            </div>
+        @endif
         <table class="table table-bordered table-striped table-condensed flip-content">
             <thead class="flip-content">
             <tr>

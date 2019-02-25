@@ -91,6 +91,7 @@ class RequestController extends ApiController
 
         if ($request->has('code'))
         {
+            dd("code");
             $code = Promotion::where('code' , '=', $request->code)->first();
             if($code != [] && $code->status != Promotion::EXPIRED )
             {
@@ -106,15 +107,19 @@ class RequestController extends ApiController
             }
 
 
-        }
+        }else
+            {
+                $req->subtotal = $request->subtotal;
+            }
+
         $req->name = $request->name;
         $req->city = $request->city;
         $req->address = $request->address;
         $req->user_id = $request->user_id;
         $req->status  = \App\Request::NEW;
         $req->save();
-
-        foreach ($request->orders as $order)
+        $arr = json_decode($request->orders);
+        foreach ($arr as $order)
         {
 
             Order::create([

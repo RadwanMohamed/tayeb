@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\ApiController;
+use App\User;
 
 class UserRequestController extends ApiController
 {

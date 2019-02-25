@@ -22,6 +22,11 @@
                                <i class="fa fa-pencil"></i>
                             </span>
                             <input type="text" name="name_ar" class="form-control" placeholder="من فضلك ادخل الاسم باللغة العربية"> </div>
+                        @if ($errors->has('name_ar'))
+                            <span class="help-block " role="alert">
+                                        <strong class="error">{{ $errors->first('name_ar') }}</strong>
+                                    </span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label>اسم الصنف بالانجليزي</label>
@@ -30,6 +35,11 @@
                                <i class="fa fa-pencil"></i>
                             </span>
                             <input type="text" name="name_en" class="form-control" placeholder="من فضلك ادخل الاسم باللغة الانجليزية"> </div>
+                        @if ($errors->has('name_en'))
+                            <span class="help-block " role="alert">
+                                        <strong class="error">{{ $errors->first('name_en') }}</strong>
+                                    </span>
+                        @endif
                     </div>
 
                     <div class="form-group">
@@ -39,6 +49,11 @@
                                <i class="fa fa-envelope"></i>
                             </span>
                             <input type="file" name="photo" class="form-control" placeholder="من فضلك ادخل صورة الصنف "> </div>
+                        @if ($errors->has('photo'))
+                            <span class="help-block " role="alert">
+                                        <strong class="error">{{ $errors->first('photo') }}</strong>
+                                    </span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label> وصف باللغة العربية </label>
@@ -47,6 +62,11 @@
                                <i class="fa fa-phone"></i>
                             </span>
                             <textarea type="text" name="description_ar" class="form-control" placeholder="اضف وصف باللغة العربية "> </textarea></div>
+                        @if ($errors->has('description_ar'))
+                            <span class="help-block " role="alert">
+                                        <strong class="error">{{ $errors->first('description_ar') }}</strong>
+                                    </span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label> وصف باللغة الانجليزية </label>
@@ -55,6 +75,11 @@
                                <i class="fa fa-key"></i>
                             </span>
                             <textarea type="text" name="description_en" class="form-control" placeholder="اضف وصف باللغة الانجليزية "> </textarea> </div>
+                        @if ($errors->has('description_en'))
+                            <span class="help-block " role="alert">
+                                        <strong class="error">{{ $errors->first('description_en') }}</strong>
+                                    </span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label> تصنيف المنتج </label>
@@ -76,6 +101,11 @@
                                <i class="fa fa-key"></i>
                             </span>
                             <input type="text" name="price" class="form-control" placeholder="اضف السعر">  </div>
+                        @if ($errors->has('price'))
+                            <span class="help-block " role="alert">
+                                        <strong class="error">{{ $errors->first('price') }}</strong>
+                                    </span>
+                        @endif
                     </div>
                     </div>  <div class="form-group">
                         <label>  الكمية </label>
@@ -84,6 +114,11 @@
                                <i class="fa fa-key"></i>
                             </span>
                             <input type="text" name="quantity" class="form-control" placeholder="اضف الكمية المرادة">  </div>
+                    @if ($errors->has('quantity'))
+                        <span class="help-block " role="alert">
+                                        <strong class="error">{{ $errors->first('quantity') }}</strong>
+                                    </span>
+                    @endif
                     </div>
 
 

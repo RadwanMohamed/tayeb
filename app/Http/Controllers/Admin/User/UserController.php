@@ -7,7 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use function Sodium\compare;
-
+use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     /**
@@ -47,8 +47,20 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name'     => ['required','string','max:250'],
+            'email'    => ['required','email','max:250'],
+            'password' => ['required','string','min:9','confirmed'],
+            'phone'    => ['required','numeric','unique:users'],
+            'city'  =>    ['required','alpha_dash'],
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
         $user = User::create([
             'name'     => $request->name,
             'email'    => $request->email,

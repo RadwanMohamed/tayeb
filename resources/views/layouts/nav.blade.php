@@ -13,13 +13,7 @@
                 <span class="selected"></span>
             </a>
         </li>
-        <li class="nav-item start active open">
-            <a href="{{route('users.create')}}" class="nav-link ">
-                <i class="icon-bar-chart"></i>
-                <span class="title"> اضافة مستخدم جديد </span>
-                <span class="selected"></span>
-            </a>
-        </li>
+
 
     </ul>
     <a href="javascript:;" class="nav-link nav-toggle">

@@ -15,6 +15,14 @@
     <div class="row">
         <div class="col-md-6" style="margin-right: 200px">
 
+            @if(\Session::has('status'))
+                <div class="alert alert-danger">
+                    <ul>
+                        <li>{!! \Session::get('status') !!}</li>
+                    </ul>
+                </div>
+            @endif
+
             <form role="form" action="{{route('users.update',$user->id)}}" method="post">
                 @csrf
                 @method('put')

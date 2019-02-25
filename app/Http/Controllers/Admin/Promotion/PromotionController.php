@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Promotion;
 use App\Promotion;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class PromotionController extends Controller
 {
@@ -37,14 +38,20 @@ class PromotionController extends Controller
      */
     public function store(Request $request)
     {
-        $rules  = [
+
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:190',
             'code' => 'required|string',
             'count' => 'required|numeric',
             'type' => 'required|string',
             'value' => 'required|numeric',
-        ];
-        $this->validate($request,$rules);
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
 
         $code = Promotion::create([
             'name'=>$request->name,

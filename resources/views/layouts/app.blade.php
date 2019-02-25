@@ -45,6 +45,11 @@
     <link href="{{asset('assets/layouts/layout/css/custom-rtl.min.css')}}" rel="stylesheet" type="text/css"/>
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="favicon.ico"/>
+    <style>
+        .error{
+            color: red;
+        }
+    </style>
 </head>
 <!-- END HEAD -->
 

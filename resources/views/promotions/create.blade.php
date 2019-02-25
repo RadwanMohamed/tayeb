@@ -25,6 +25,11 @@
                                <i class="fa fa-pencil"></i>
                             </span>
                             <input type="text" name="name" class="form-control" placeholder="من فضلك ادخل اسم الكود">
+                            @if ($errors->has('name'))
+                                <span class="help-block " role="alert">
+                                        <strong class="error">{{ $errors->first('name') }}</strong>
+                                    </span>
+                            @endif
                         </div>
                     </div>
                     <div class="form-group">
@@ -35,6 +40,11 @@
                             </span>
                             <input type="text" name="code" class="form-control"
                                    value="{{\App\Promotion::generatePromoCode()}}"></div>
+                        @if ($errors->has('name'))
+                            <span class="help-block " role="alert">
+                                        <strong class="error">{{ $errors->first('code') }}</strong>
+                                    </span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label> عدد مرات الاستخدام </label>
@@ -44,6 +54,11 @@
                             </span>
                             <input type="text" name="count" class="form-control"
                                    placeholder="ادخل عدد مرات استخدام الكود "></div>
+                        @if ($errors->has('count'))
+                            <span class="help-block " role="alert">
+                                        <strong class="error">{{ $errors->first('count') }}</strong>
+                                    </span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label>نوع الكود </label>
@@ -65,6 +80,11 @@
                             </span>
                                 <input type="text" name="value" class="form-control" placeholder=" ادخل قيمة الخصم ">
                             </div>
+                            @if ($errors->has('value'))
+                                <span class="help-block " role="alert">
+                                        <strong class="error">{{ $errors->first('value') }}</strong>
+                                    </span>
+                            @endif
 
                         </div>
 

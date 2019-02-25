@@ -35,6 +35,11 @@
                             </span>
                             <input type="text" name="city" class="form-control" placeholder="من فضلك ادخل  مدينة الفرع">
                         </div>
+                        @if ($errors->has('city'))
+                            <span class="help-block " role="alert">
+                                        <strong class="error">{{ $errors->first('city') }}</strong>
+                                    </span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label>وصف</label>
@@ -44,6 +49,11 @@
                             </span>
                             <textarea type="text" name="description" class="form-control" placeholder="من فضلك ادخل  وصف الفرع"></textarea>
                         </div>
+                        @if ($errors->has('description'))
+                            <span class="help-block " role="alert">
+                                        <strong class="error">{{ $errors->first('description') }}</strong>
+                                    </span>
+                        @endif
                     </div>
 
 

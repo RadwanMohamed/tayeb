@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Branch;
 use App\Branch;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class BranchController extends Controller
 {
@@ -37,12 +38,17 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-        $rules  = [
+
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:190',
             'city' => 'required|string|max:190',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
-        ];
-        $this->validate($request,$rules);
 
         Branch::create($request->all());
         return redirect(route('branches.index'));
