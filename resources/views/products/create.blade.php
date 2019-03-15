@@ -107,7 +107,8 @@
                                     </span>
                         @endif
                     </div>
-                    </div>  <div class="form-group">
+                    </div>
+                <div class="form-group">
                         <label>  الكمية </label>
                         <div class="input-group">
                             <span class="input-group-addon">
@@ -119,7 +120,27 @@
                                         <strong class="error">{{ $errors->first('quantity') }}</strong>
                                     </span>
                     @endif
-                    </div>
+                </div>
+                <div class="form-group">
+                        <label>  الفروع المتاح فيها المنتج </label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                               <i class="fa fa-key"></i>
+                            </span>
+                            <select id="multiple" class="form-control select2-multiple" multiple name="branches[]">
+                                    @foreach($branches as $branch)
+                                    <option value="{{$branch->id}}">{{$branch->name}}</option>
+                                    @endforeach
+
+                            </select>
+                        </div>
+                    @if ($errors->has('quantity'))
+                        <span class="help-block " role="alert">
+                                        <strong class="error">{{ $errors->first('quantity') }}</strong>
+                                    </span>
+                    @endif
+                </div>
+
 
 
                 <div class="form-actions">

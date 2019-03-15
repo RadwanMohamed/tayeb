@@ -28,8 +28,10 @@
           type="text/css"/>
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
-    <link href="{{asset('assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css')}}" rel="stylesheet"
-          type="text/css"/>
+    <link href="{{asset('assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{asset('assets/global/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{asset('assets/global/plugins/select2/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css"/>
+
     <link href="{{asset('assets/global/plugins/morris/morris.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset('assets/global/plugins/fullcalendar/fullcalendar.min.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset('assets/global/plugins/jqvmap/jqvmap/jqvmap.css')}}" rel="stylesheet" type="text/css"/>
@@ -396,7 +398,7 @@
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                            data-close-others="true">
                             <img alt="" class="img-circle" src="{{asset('assets/layouts/layout/img/avatar3_small.jpg')}}"/>
-                            <span class="username username-hide-on-mobile"> {{Auth::user()->name}} </span>
+                            <span class="username username-hide-on-mobile"> Nick </span>
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
@@ -410,7 +412,11 @@
                     <!-- END USER LOGIN DROPDOWN -->
                     <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                   
+                    <li class="dropdown dropdown-quick-sidebar-toggler">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <i class="icon-logout"></i>
+                        </a>
+                    </li>
                     <!-- END QUICK SIDEBAR TOGGLER -->
                 </ul>
             </div>
@@ -571,7 +577,25 @@
                 </div>
                 <!-- END THEME PANEL -->
                 <!-- BEGIN PAGE BAR -->
-
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <a href="index.html">Home</a>
+                            <i class="fa fa-circle"></i>
+                        </li>
+                        <li>
+                            <span>Dashboard</span>
+                        </li>
+                    </ul>
+                    <div class="page-toolbar">
+                        <div id="dashboard-report-range" class="pull-right tooltips btn btn-sm" data-container="body"
+                             data-placement="bottom" data-original-title="Change dashboard date range">
+                            <i class="icon-calendar"></i>&nbsp;
+                            <span class="thin uppercase hidden-xs"></span>&nbsp;
+                            <i class="fa fa-angle-down"></i>
+                        </div>
+                    </div>
+                </div>
                 <!-- END PAGE BAR -->
                 <!-- BEGIN PAGE TITLE-->
 
@@ -1206,10 +1230,11 @@
 
 
     <div class="page-footer">
-        <div class="page-footer-inner"> Developed By
-            <a target="_blank" href="http://keenthemes.com">Radwan Mohamed</a> &nbsp;|&nbsp;
-            <a href="#"
-               title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Radwanmohamed334@gamil.com</a>
+        <div class="page-footer-inner"> 2016 &copy; Metronic Theme By
+            <a target="_blank" href="http://keenthemes.com">Keenthemes</a> &nbsp;|&nbsp;
+            <a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes"
+               title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase
+                Metronic!</a>
         </div>
         <div class="scroll-to-top">
             <i class="icon-arrow-up"></i>
@@ -1275,12 +1300,14 @@
 
 
 {{--<!-- BEGIN THEME GLOBAL SCRIPTS -->--}}
+<script src="{{asset('assets/global/plugins/select2/js/select2.full.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/global/scripts/app.min.js')}}" type="text/javascript"></script>
 {{--<!-- END THEME GLOBAL SCRIPTS -->--}}
 {{--<!-- BEGIN PAGE LEVEL SCRIPTS -->--}}
 {{--<script src="{{asset('assets/pages/scripts/dashboard.min.js')}}" type="text/javascript"></script>--}}
 
 <script src="{{asset('assets/pages/scripts/charts-amcharts.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/pages/scripts/components-select2.min.js')}}" type="text/javascript"></script>
 
 {{--<!-- END PAGE LEVEL SCRIPTS -->--}}
 {{--<!-- BEGIN THEME LAYOUT SCRIPTS -->--}}
@@ -1288,6 +1315,7 @@
 <script src="{{asset('assets/layouts/layout/scripts/demo.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/layouts/global/scripts/quick-sidebar.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/layouts/global/scripts/quick-nav.min.js')}}" type="text/javascript"></script>
+
 <!-- END THEME LAYOUT SCRIPTS -->
 @yield('js')
 </body>

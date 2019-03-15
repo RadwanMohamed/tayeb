@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Category;
 
 use App\Category;
 use App\Http\Controllers\ApiController;
+use Illuminate\Support\Facades\App;
 
 
 class CategoryController extends ApiController
@@ -13,8 +14,9 @@ class CategoryController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($locale)
     {
+        App::setLocale($locale);
         $categories = Category::all();
         return $this->showAll('categories',$categories);
     }
@@ -27,8 +29,9 @@ class CategoryController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($locale,Category $category)
     {
+        App::setLocale($locale);
         return $this->showOne('category',$category);
     }
 

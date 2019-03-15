@@ -12,9 +12,10 @@ class ProductController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($locale)
     {
-        $products = Product::all();
+        App::setLocale($locale);
+        $products = Product::paginate(20);
         return $this->showAll('products',$products);
     }
 
@@ -25,8 +26,9 @@ class ProductController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($locale,Product $product)
     {
+        App::setLocale($locale);
         return $this->showOne('product',$product);
     }
 

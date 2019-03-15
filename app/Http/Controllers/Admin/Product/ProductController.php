@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Product;
 
+use App\Branch;
 use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
@@ -31,8 +32,9 @@ class ProductController extends Controller
     public function create()
     {
 
-        $categories = $this->objectToArray(Category::all());
-        return view('products.create',compact('categories'));
+        $this->data['categories'] = $this->objectToArray(Category::all());
+        $this->data['branches']   = Branch::all();
+        return view('products.create',$this->data);
     }
 
     public function objectToArray($object)
@@ -53,7 +55,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'name_ar' => 'required|string|max:190',
             'name_en' => 'required|string|max:190',
@@ -81,7 +82,7 @@ class ProductController extends Controller
             'quantity' => $request->quantity,
             'category_id' => $request->category_id,
         ]);
-
+        $product->branches()->syncWithoutDetaching($request->branches);
         return redirect(route('products.index'));
     }
 

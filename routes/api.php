@@ -23,8 +23,15 @@ Route::group(['middleware'=>['api']],function (){
     Route::post('/users/store','Api\User\UserController@store');
     Route::get('/target/{city}','Api\HomeController@targetCity');
 
+    // start Email routes
 
-Route::group(['middleware'=>'auth:api'],function (){
+    Route::post('/password/email','Api\User\UserController@send');
+    Route::post('/password/reset','Api\User\UserController@resetPassword');
+
+
+    // end Email routes
+
+    Route::group(['middleware'=>'auth:api'],function (){
     //start users routes
     Route::resource('/users','Api\User\UserController')->except(['edit','create']);
     Route::resource('/users.requests','Api\User\UserRequestController')->only(['index']);
@@ -33,13 +40,14 @@ Route::group(['middleware'=>'auth:api'],function (){
 
 
     //start categories routes
-    Route::resource('/categories','Api\Category\CategoryController')->only(['index','show']);
+    Route::resource('/{locale}/categories','Api\Category\CategoryController')->only(['index','show']);
     Route::resource('/categories.products','Api\Category\CategoryProductController')->only(['index']);
     //End categories routes
 
 
     //start product routes
-    Route::resource('/products','Api\Product\ProductController')->only(['index','show']);
+    Route::resource('/{locale}/products','Api\Product\ProductController')->only(['index','show']);
+    Route::resource('/product.branches','Api\Product\ProductBranchController')->only(['index']);
     //end  product routes
 
 
@@ -56,8 +64,19 @@ Route::group(['middleware'=>'auth:api'],function (){
     //end  orders routes
 
 
-    //start home routes
-    //end  home routes
+    //start branch routes
+    Route::resource('/branch','Api\Branch\BranchController')->only(['index']);
+    Route::resource('/branch.products','Api\Branch\BranchProductController')->only(['index']);
+    //end  branch routes
+
+
+
+   // start contact routes
+
+    Route::post('/message','Api\Contact\ContactController@send');
+
+
+    // end contact routes
 
 });
 

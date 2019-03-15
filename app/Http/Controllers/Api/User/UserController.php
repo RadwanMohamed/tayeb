@@ -6,6 +6,7 @@ use App\Http\Requests\UserRequest;
 use App\Http\Controllers\ApiController;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends ApiController
 {
@@ -106,5 +107,31 @@ class UserController extends ApiController
     {
         $user->delete();
         return $this->showOne($user,200);
+    }
+
+    public function send(Request $request)
+    {
+        $user = User::find($request->id);
+        $user->verify = User::generateVerificationKey();
+        $user->save();
+        Mail::send('emails.forget', $user, function ($message) use ($user) {
+            $message->to($user->email, $user->name)->subject('تغير كلمة السر ');
+        });
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $rules = [
+
+            'password' => 'required|string|confirmed',
+        ];
+        $this->validate($request, $rules);
+        $user = User::find($request->id);
+        if($user->verify != $request->verify )
+                return $this->errorResponse('عفوا تاكد من  صحة البيانات المدخلة');
+        $user->password = bcrypt($request->password);
+        $user->verify = null;
+        $user->save();
+        return $this->showOne('user',$user);
     }
 }
