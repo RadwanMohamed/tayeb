@@ -106,7 +106,7 @@ class UserController extends ApiController
     public function destroy(User $user)
     {
         $user->delete();
-        return $this->showOne($user,200);
+        return $this->showOne('user',$user,200);
     }
 
     public function send(Request $request)

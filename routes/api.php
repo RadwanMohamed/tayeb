@@ -41,7 +41,7 @@ Route::group(['middleware'=>['api']],function (){
 
     //start categories routes
     Route::resource('/{locale}/categories','Api\Category\CategoryController')->only(['index','show']);
-    Route::resource('/categories.products','Api\Category\CategoryProductController')->only(['index']);
+    Route::resource('/{locale}/categories.products','Api\Category\CategoryProductController')->only(['index']);
     //End categories routes
 
 
@@ -66,7 +66,7 @@ Route::group(['middleware'=>['api']],function (){
 
     //start branch routes
     Route::resource('/branch','Api\Branch\BranchController')->only(['index']);
-    Route::resource('/branch.products','Api\Branch\BranchProductController')->only(['index']);
+    Route::resource('/{locale}/branch.products','Api\Branch\BranchProductController')->only(['index']);
     //end  branch routes
 
 

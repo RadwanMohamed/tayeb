@@ -14,9 +14,10 @@ class UserRequestController extends ApiController
      */
     public function index(User $user)
     {
-        $requests = $user->requests;
-        $this->showAll('requests',$requests);
+       $requests = $user->requests;
+       return $this->showAll('requests',$requests);
     }
+
 
 
 }

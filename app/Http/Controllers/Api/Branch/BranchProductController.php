@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Branch;
 use App\Branch;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
+use Illuminate\Support\Facades\App;
 
 class BranchProductController extends ApiController
 {
@@ -13,8 +14,9 @@ class BranchProductController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Branch $branch)
+    public function index($locale,Branch $branch)
     {
+        App::setLocale($locale);
         $products = $branch->products;
         return $this->showAll('products',$products);
     }

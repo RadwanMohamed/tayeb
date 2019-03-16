@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Product;
 
 use App\Product;
 use App\Http\Controllers\ApiController;
+use Illuminate\Support\Facades\App;
 
 class ProductController extends ApiController
 {
@@ -16,13 +17,11 @@ class ProductController extends ApiController
     {
         App::setLocale($locale);
         $products = Product::paginate(20);
-        return $this->showAll('products',$products);
+        return response()->json($products);
     }
-
 
     /**
      * Display the specified resource.
-     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
