@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Api\Order;
 
+use App\CutterKind;
+use App\CutterSize;
 use App\Http\Controllers\ApiController;
 use App\Order;
+use App\Product;
 use Illuminate\Http\Request;
 
 class OrderController extends ApiController
 {
+    private $data;
     /**
      * Display a listing of the resource.
      *
@@ -25,9 +29,33 @@ class OrderController extends ApiController
      * @param Order $order
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Order $order)
+    public function show(Request $request,Order $order)
     {
-        return $this->showOne('order',$order);
+        $this->data['order'] = $order;
+        if ($request->locale == 'ar')
+        {
+            $this->data['product'] = Product::select('id','name_ar as name','description_ar as description','photo1','photo2','price','quantity','category_id')->where('id',$order->product_id)->get();
+        }
+        else{
+            $this->data['product'] = Product::select('id','name_en as name','description_en as description','photo1','photo2','price','quantity','category_id')->where('id',$order->product_id)->get();
+        }
+        if ($request->locale == 'ar')
+        {
+            $this->data['cuttersize'] = CutterSize::select('id','name_ar as name','description_ar as description')->where('id',$order->cuttersize_id)->get();
+        }
+        else{
+            $this->data['cuttersize'] = CutterSize::select('id','name_en as name','description_en as description')->where('id',$order->cuttersize_id)->get();
+        }
+
+        if ($request->locale == 'ar')
+        {
+            $this->data['cutterkind'] = CutterKind::select('id','name_ar as name','description_ar as description')->where('id',$order->cutterkind_id)->get();
+        }
+        else{
+            $this->data['cutterkind'] = CutterKind::select('id','name_en as name','description_en as description')->where('id',$order->cutterkind_id)->get();
+        }
+//        dd($this->data);
+        return response()->json($this->data,200);
     }
 
     /**

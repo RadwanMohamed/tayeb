@@ -13,9 +13,15 @@ class BranchController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $branches = Branch::all();
+        if ($request->locale == 'ar')
+        {
+            $branches = Branch::select('id','name','description','city')->get();
+        }
+        else{
+            $branches = Branch::select('id','name_en as name','description_en as description','city_en as city')->get();
+        }
         return $this->showAll('branches',$branches);
     }
 

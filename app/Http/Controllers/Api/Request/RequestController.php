@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Api\Request;
 
 use App\Http\Controllers\ApiController;
 use App\Order;
+use App\Product;
 use App\Promotion;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 
 
 class RequestController extends ApiController
@@ -18,7 +21,7 @@ class RequestController extends ApiController
      */
     public function index()
     {
-        $requests = \App\Request::all();
+        $requests = \App\Request::with('orders')->get();
         return $this->showAll('requests',$requests);
     }
 
@@ -75,6 +78,13 @@ class RequestController extends ApiController
 
     public function request(Request $request)
     {
+
+        if ($request->has('locale'))
+        {
+            $locale = $request->locale;
+            App::setLocale($locale);
+        }
+
         $user = User::where('api_token',$request->api_token)->first();
         if (!$request->has('orders'))
                 return $this->errorResponse('you must to choose at least one product',422);
@@ -88,9 +98,6 @@ class RequestController extends ApiController
 
 
         $req = new \App\Request();
-
-
-
         $req->name = $request->name;
         $req->city = $request->city;
         $req->address = $request->address;
@@ -98,25 +105,37 @@ class RequestController extends ApiController
         $req->subtotal = 0;
         $req->status  = \App\Request::NEW;
         $req->save();
-        $arr = json_decode($request->orders);
-        $sub = 0;
-        foreach ($arr as $order)
-        {
 
-           $order = Order::create([
-                'name' => $order->name,
-                'cutter_kind' => $order->cutter_kind,
-                'size' => $order->size,
-                'price' => $order->price,
-                'quantity' => $order->quantity,
+        if (!$request->has("orders"))
+            return response()->json(["error"=>"يجب ان يحتوى على طلب واحد على الاقل "],422);
+        $sub = 0;
+        foreach ($request->orders as $order)
+        {
+            $product = Product::where('id','=',$order['product_id'])->first();
+
+            if (!$product)
+                    return response()->json(['error'=>"you must choose a valid product"],200);
+
+            $order = Order::create([
+                'name' => $product->name_en,
+                'cuttersize_id' => $order['cuttersize_id'],
+                'cutterkind_id' => $order['cutterkind_id'],
+                'price' => $product->price,
+                'quantity' => $order['quantity'],
                 'status' => Order::NEW,
-                'subtotal' => $order->quantity * $order->price,
+                'product_id' => $order['product_id'],
+                'subtotal' => $order['quantity'] * $product->price,
                 'request_id' => $req->id,
             ]);
-           $sub +=$order->subtotal;
-        }
 
-        if ($request->has('code'))
+            $sub +=$order->subtotal;
+
+        }
+        if (!$request->has('code') || $request->code == null || $request->code == "")
+        {
+            $req->subtotal = $sub;
+        }
+        else
         {
             $code = Promotion::where('code' , '=', $request->code)->first();
             if($code != [] && $code->status != Promotion::EXPIRED )
@@ -133,10 +152,8 @@ class RequestController extends ApiController
             }
 
 
-        }else
-        {
-            $req->subtotal = $sub;
         }
+
         $req->save();
         return $this->showOne('request',$req);
     }

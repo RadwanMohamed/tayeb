@@ -55,6 +55,45 @@
                     </div>
 
 
+                    <div class="form-group">
+                        <label>اسم الفرع باللغة الانجليزية</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                               <i class="fa fa-pencil"></i>
+                            </span>
+                            <input type="text" name="name_en" class="form-control" value="{{$branch->name_en}}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>مدينة الفرع باللغة الانجليزية</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                               <i class="fa fa-pencil"></i>
+                            </span>
+                            <input type="text" name="city_en" class="form-control" value="{{$branch->city_en}}">
+                        </div>
+                        @if ($errors->has('city_en'))
+                            <span class="help-block " role="alert">
+                                        <strong class="error">{{ $errors->first('city_en') }}</strong>
+                                    </span>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <label>وصف باالغة الانجليزية</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                               <i class="fa fa-pencil"></i>
+                            </span>
+                            <textarea type="text" name="description_en" class="form-control" >{{$branch->description_en}}</textarea>
+                        </div>
+                        @if ($errors->has('description_en'))
+                            <span class="help-block " role="alert">
+                                        <strong class="error">{{ $errors->first('description_en') }}</strong>
+                                    </span>
+                        @endif
+                    </div>
+
+
                     <div class="form-actions">
                         <button type="submit" class="btn blue">حفظ</button>
                     </div>

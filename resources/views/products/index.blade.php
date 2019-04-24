@@ -31,7 +31,7 @@
                     <td> {{$product->name_ar}} </td>
                     <td> {{$product->name_en}} </td>
                     <td>
-                        <img class="rounded" style="height: 50px; width: 50px;"  src="{{Request::root()}}/{{$product->photo}}">
+                        <img class="rounded" style="height: 50px; width: 50px;"  src="{{Request::root()}}/img/{{$product->photo1}}">
                     </td>
                     <td> {{$product->description_ar}} </td>
                     <td> {{$product->description_en}} </td>

@@ -41,13 +41,23 @@
 
                     <div class="form-group">
                         <label>صورة الصنف</label>
-                        <img src="{{Request::root()}}/{{$product->photo}}" class="rounded" style="width: 50px; height:50;">
+                        <img src="{{Request::root()}}/img/{{$product->photo1}}" class="rounded" style="width: 50px; height:50;">
 
                         <div class="input-group">
                             <span class="input-group-addon">
                                <i class="fa fa-envelope"></i>
                             </span>
-                            <input type="file" name="photo" class="form-control" placeholder="من فضلك ادخل صورة الصنف "> </div>
+                            <input type="file" name="photo1" class="form-control" placeholder="من فضلك ادخل صورة الصنف "> </div>
+                    </div>
+                    <div class="form-group">
+                        <label>صورة الصنف</label>
+                        <img src="{{Request::root()}}/img/{{$product->photo2}}" class="rounded" style="width: 50px; height:50;">
+
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                               <i class="fa fa-envelope"></i>
+                            </span>
+                            <input type="file" name="photo2" class="form-control" placeholder="من فضلك ادخل صورة الصنف "> </div>
                     </div>
                     <div class="form-group">
                         <label> وصف باللغة العربية </label>
@@ -95,6 +105,25 @@
                         <input type="text" name="quantity" class="form-control" placeholder="اضف الكمية المرادة" value="{{$product->quantity}}">  </div>
                 </div>
 
+                <div class="form-group">
+                    <label>  الفروع المتاح فيها المنتج </label>
+                    <div class="input-group">
+                            <span class="input-group-addon">
+                               <i class="fa fa-key"></i>
+                            </span>
+                        <select id="multiple" class="form-control select2-multiple" multiple name="branches[]">
+                            @foreach($branches as $key=> $branch)
+                                <option value="{{$key}}" @if(array_key_exists($key,$productbranches)) selected @endif >{{$branch}}</option>
+                            @endforeach
+
+                        </select>
+                    </div>
+                    @if ($errors->has('quantity'))
+                        <span class="help-block " role="alert">
+                                        <strong class="error">{{ $errors->first('quantity') }}</strong>
+                                    </span>
+                    @endif
+                </div>
 
                 <div class="form-actions">
                     <button type="submit" class="btn blue">حفظ</button>

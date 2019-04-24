@@ -16,14 +16,18 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('cutter_kind');
-            $table->string('size');
             $table->string('price');
             $table->integer('quantity');
             $table->string('status')->default(\App\Order::NEW);
             $table->string('subtotal');
+            $table->integer('product_id')->unsigned();
+            $table->integer('cuttersize_id')->unsigned();
+            $table->integer('cutterkind_id')->unsigned();
             $table->integer('request_id')->unsigned();
             $table->timestamps();
+            $table->foreign('cuttersize_id')->references('id')->on('cutter_sizes');
+            $table->foreign('cutterkind_id')->references('id')->on('cutter_kinds');
+            $table->foreign('product_id')->references('id')->on('products');
             $table->foreign('request_id')->references('id')->on('requests');
         });
     }

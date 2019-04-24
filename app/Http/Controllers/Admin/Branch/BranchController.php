@@ -42,6 +42,8 @@ class BranchController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:190',
             'city' => 'required|string|max:190',
+            'name_en' => 'required|string|max:190',
+            'city_en' => 'required|string|max:190',
         ]);
         if ($validator->fails()) {
             return redirect()->back()
@@ -90,7 +92,11 @@ class BranchController extends Controller
            'name' => $request->name,
            'city' => $request->city,
            'description' => $request->description,
+            'name_en' => $request->name_en,
+           'city_en' => $request->city_en,
+           'description_en' => $request->description_en,
         ]);
+
         return redirect(route('branches.index'));
     }
 

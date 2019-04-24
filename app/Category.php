@@ -18,22 +18,22 @@ class Category extends Model
         return "img/".$value;
     }
 
-    public function getNameAttribute($value)
-    {
-        if (app()->isLocale('en')) {
-            return $this->attributes['name_en'];
-        } else {
-            return $this->attributes['name_ar'];
-        }
-    }
-    public function getDescriptionAttribute($value)
-    {
-        if(app()->isLocale('en'))
-        {
-            return $this->attributes['description_en'];
-        }
-        else{
-            return $this->attributes['description_ar'];
-        }
-    }
+//    public function getNameAttribute($value)
+//    {
+//        if (app()->isLocale('en')) {
+//            return $this->attributes['name_en'];
+//        } else {
+//            return $this->attributes['name_ar'];
+//        }
+//    }
+//    public function getDescriptionAttribute($value)
+//    {
+//        if(app()->isLocale('en'))
+//        {
+//            return $this->attributes['description_en'];
+//        }
+//        else{
+//            return $this->attributes['description_ar'];
+//        }
+//    }
 }

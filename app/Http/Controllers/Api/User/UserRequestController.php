@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\ApiController;
+use Illuminate\Http\Request;
 use App\User;
 
 class UserRequestController extends ApiController
@@ -12,10 +13,11 @@ class UserRequestController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(User $user)
+    public function index(Request $request)
     {
-       $requests = $user->requests;
-       return $this->showAll('requests',$requests);
+        $user = User::where('api_token',$request->api_token)->first();
+        $requests = $this->paginate($user->requests);
+       return response()->json($requests,200);
     }
 
 

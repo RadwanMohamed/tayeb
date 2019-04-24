@@ -48,13 +48,28 @@
                             <span class="input-group-addon">
                                <i class="fa fa-envelope"></i>
                             </span>
-                            <input type="file" name="photo" class="form-control" placeholder="من فضلك ادخل صورة الصنف "> </div>
-                        @if ($errors->has('photo'))
+                            <input type="file" name="photo1" class="form-control" placeholder="من فضلك ادخل صورة الصنف "> </div>
+                        @if ($errors->has('photo1'))
                             <span class="help-block " role="alert">
-                                        <strong class="error">{{ $errors->first('photo') }}</strong>
+                                        <strong class="error">{{ $errors->first('photo1') }}</strong>
                                     </span>
                         @endif
                     </div>
+
+                    <div class="form-group">
+                        <label>صورة الصنف</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                               <i class="fa fa-envelope"></i>
+                            </span>
+                            <input type="file" name="photo2" class="form-control" placeholder="من فضلك ادخل صورة الصنف "> </div>
+                        @if ($errors->has('photo2'))
+                            <span class="help-block " role="alert">
+                                        <strong class="error">{{ $errors->first('photo2') }}</strong>
+                                    </span>
+                        @endif
+                    </div>
+
                     <div class="form-group">
                         <label> وصف باللغة العربية </label>
                         <div class="input-group">
@@ -129,7 +144,7 @@
                             </span>
                             <select id="multiple" class="form-control select2-multiple" multiple name="branches[]">
                                     @foreach($branches as $branch)
-                                    <option value="{{$branch->id}}">{{$branch->name}}</option>
+                                    <option value="{{$branch->id}}" >{{$branch->name}}</option>
                                     @endforeach
 
                             </select>

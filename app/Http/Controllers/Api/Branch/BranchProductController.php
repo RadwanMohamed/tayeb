@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Branch;
 
 use App\Branch;
+use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\App;
@@ -14,11 +15,25 @@ class BranchProductController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($locale,Branch $branch)
+    public function index(Request $request,Branch $branch)
     {
-        App::setLocale($locale);
-        $products = $branch->products;
-        return $this->showAll('products',$products);
+//        $category = Category::find($request->category_id);
+        if ($request->has('locale'))
+        {
+            $locale = $request->locale;
+            App::setLocale($locale);
+        }
+        if ($request->locale == 'ar')
+        {
+            $products = $branch->products()->select("product_id as id","name_ar as name","description_ar as description","photo1","photo2","price","quantity")->where('category_id',$request->category_id)->get();
+
+        }else{
+            $products = $branch->products()->select("product_id as id","name_en as name","description_en as description","photo1","photo2","price","quantity")->where('category_id',$request->category_id)->get();
+
+        }
+        $products = $this->paginate($products);
+//        dd($products);
+        return response()->json($products,200);
     }
 
     /**

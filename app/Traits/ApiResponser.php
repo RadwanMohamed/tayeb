@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Traits;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,5 +31,16 @@ trait ApiResponser
     protected function showMessage($message , $code =200)
     {
         return $this->successResponse(['data'=>$message],$code);
+    }
+    public function paginate(Collection $collection)
+    {
+        $page = LengthAwarePaginator::resolveCurrentPage();
+        $perpage = 15;
+        $results = $collection->slice(($page - 1)*$perpage,$perpage)->values();
+        $paginated = new LengthAwarePaginator($results,$collection->count(),$perpage,$page,[
+           'path'=> LengthAwarePaginator::resolveCurrentPath(),
+        ]);
+        $paginated->appends(request()->all());
+        return $paginated;
     }
 }

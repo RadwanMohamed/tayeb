@@ -64,6 +64,52 @@
     </ul>
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="icon-home"></i>
+        <span class="title"> انواع القطع </span>
+        <span class="selected"></span>
+        <span class="arrow open"></span>
+    </a>
+    <ul class="sub-menu">
+        <li class="nav-item start active open">
+            <a href="{{route('cutterkinds.index')}}" class="nav-link ">
+                <i class="icon-bar-chart"></i>
+                <span class="title"> عرض جميع الانواع </span>
+                <span class="selected"></span>
+            </a>
+        </li>
+        <li class="nav-item start active open">
+            <a href="{{route('cutterkinds.create')}}" class="nav-link ">
+                <i class="icon-bar-chart"></i>
+                <span class="title"> اضافة نوع جديد </span>
+                <span class="selected"></span>
+            </a>
+        </li>
+
+    </ul>
+    <a href="javascript:;" class="nav-link nav-toggle">
+        <i class="icon-home"></i>
+        <span class="title"> حجم القطع </span>
+        <span class="selected"></span>
+        <span class="arrow open"></span>
+    </a>
+    <ul class="sub-menu">
+        <li class="nav-item start active open">
+            <a href="{{route('cuttersize.index')}}" class="nav-link ">
+                <i class="icon-bar-chart"></i>
+                <span class="title"> عرض جميع الاحجام </span>
+                <span class="selected"></span>
+            </a>
+        </li>
+        <li class="nav-item start active open">
+            <a href="{{route('cuttersize.create')}}" class="nav-link ">
+                <i class="icon-bar-chart"></i>
+                <span class="title"> اضافة حجم جديد </span>
+                <span class="selected"></span>
+            </a>
+        </li>
+
+    </ul>
+    <a href="javascript:;" class="nav-link nav-toggle">
+        <i class="icon-home"></i>
         <span class="title"> المنتجات </span>
         <span class="selected"></span>
         <span class="arrow open"></span>

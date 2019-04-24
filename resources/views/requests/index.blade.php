@@ -35,7 +35,7 @@
                     <td> {{$request->city}} </td>
                     <td> {{$request->address}} </td>
                     <td>
-                        {{role($request->subtotal)}}
+                        {{$request->subtotal}}
                     </td>
                     <td> {{requestStatus($request->id)}} </td>
                     <td> @if($request->code_id != ''){{$request->code->name}}@endif </td>

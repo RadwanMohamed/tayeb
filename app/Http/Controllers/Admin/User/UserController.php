@@ -125,12 +125,12 @@ class UserController extends Controller
 
         if ($request->has('city'))
             $user->city = $request->city;
-
+//        dd($request->all());
         if ($user->isClean())
             return redirect()->back()->with('status','عفوا يجب ادخال قيم جديدة لاتمام عملية التحديث');
 
         $user->save();
-        return redirect('users.show',compact('user'));
+        return redirect('users.index');
 
     }
 

@@ -12,7 +12,7 @@
             <thead class="flip-content">
             <tr>
                 <th width="20%"> م</th>
-                <th class="numeric"> الاسم بالعربي </th>
+                <th class="numeric"> الاسم  </th>
                 <th class="numeric"> الاسم بالانجليزي</th>
                 <th class="numeric"> الصورة</th>
                 <th class="numeric"> الوصف بالعربي </th>

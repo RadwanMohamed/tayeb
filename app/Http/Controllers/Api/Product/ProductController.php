@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Product;
 
 use App\Product;
 use App\Http\Controllers\ApiController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
 class ProductController extends ApiController
@@ -13,10 +14,18 @@ class ProductController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($locale)
+    public function index(Request $request)
     {
+        $locale = $request->locale;
         App::setLocale($locale);
-        $products = Product::paginate(20);
+        if ($request->locale == 'ar')
+        {
+            $products = Product::select('id','name_ar as name','description_ar as description','photo1','photo2','price','quantity','category_id');
+        }
+        else{
+            $products = Product::select('id','name_en as name','description_en as description','photo1','photo2','price','quantity','category_id');
+        }
+        $products = $products->paginate(20);
         return response()->json($products);
     }
 

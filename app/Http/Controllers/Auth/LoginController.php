@@ -6,6 +6,7 @@ use App\Http\Controllers\ApiController;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends ApiController
@@ -46,6 +47,12 @@ class LoginController extends ApiController
     }
    public function login(Request $request )
    {
+       if ($request->has('locale'))
+       {
+           $locale = $request->locale;
+           App::setLocale($locale);
+       }
+
        $this->validateLogin($request);
        if ($this->attemptLogin($request))
        {

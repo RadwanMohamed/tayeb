@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api\Category;
 
 use App\Category;
 use App\Http\Controllers\ApiController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 
 
 class CategoryController extends ApiController
@@ -14,10 +16,22 @@ class CategoryController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($locale)
+    public function index(Request $request)
     {
-        App::setLocale($locale);
-        $categories = Category::all();
+        if ($request->has('locale'))
+        {
+            $locale = $request->locale;
+            App::setLocale($locale);
+        }
+        if ($request->locale == 'ar')
+        {
+            $categories = Category::select('id','name_ar as name','description_ar as description','photo')->get();
+        }
+        else{
+            $categories = Category::select('id','name_en as name','description_en as description','photo')->get();
+        }
+
+
         return $this->showAll('categories',$categories);
     }
 
